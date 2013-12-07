@@ -2,42 +2,38 @@
 
 module DDPlugin
 
-  # The class responsible for keeping track of all loaded plugins.
+  # The registry is responsible for keeping track of all loaded plugins.
   class Registry
 
-    # Returns the shared {PluginRegistry} instance, creating it if none exists
-    # yet.
+    # Returns the shared {DDPlugin::Registry} instance, creating it if none
+    # exists yet.
     #
     # @return [DDPlugin::Registry] The shared plugin registry
     def self.instance
       @instance ||= self.new
     end
 
-    # Creates a new plugin registry. This should usually not be necessary; it
-    # is recommended to use the shared instance (obtained from
-    # {DDPlugin::Registry.instance}).
+    # @api private
     def initialize
-      @identifiers_to_classes = {}
-      @classes_to_identifiers = {}
+      @identifiers_to_classes = Hash.new { |h,k| h[k] = {}.dup }
+      @classes_to_identifiers = Hash.new { |h,k| h[k] = {}.dup }
     end
 
     # Registers the given class as a plugin.
     #
     # @param [Class] superclass The superclass of the plugin
     #
-    # @param [Class, String] class_or_name The class to register, or a string,
-    #   in which case it will be automatically converted to a proper class.
+    # @param [Class] klass The class to register
     #
     # @param [Symbol] identifiers One or more symbols identifying the class
     #
     # @return [void]
-    def register(superclass, class_or_name, *identifiers)
-      @identifiers_to_classes[superclass] ||= {}
-      @classes_to_identifiers[superclass] ||= {}
-
+    def register(superclass, klass, *identifiers)
       identifiers.each do |identifier|
-        @identifiers_to_classes[superclass][identifier.to_sym] = class_or_name
-        (@classes_to_identifiers[superclass][name_for_class(class_or_name)] ||= []) << identifier.to_sym
+        @classes_to_identifiers[superclass][klass] ||= []
+
+        @identifiers_to_classes[superclass][identifier] = klass
+        @classes_to_identifiers[superclass][klass] << identifier
       end
     end
 
@@ -47,20 +43,21 @@ module DDPlugin
     #
     # @return [Array<Symbol>] An array of identifiers for the given class
     def identifiers_of(superclass, klass)
-      (@classes_to_identifiers[superclass] || {})[name_for_class(klass)] || []
+      @classes_to_identifiers[superclass] ||= {}
+      @classes_to_identifiers[superclass].fetch(klass, [])
     end
 
     # Finds the plugin that is a subclass of the given class and has the given
-    # name.
+    # identifier.
     #
     # @param [Class] klass The class of the plugin to return
     #
-    # @param [Symbol] name The name of the plugin to return
+    # @param [Symbol] identifier The identifier of the plugin to return
     #
-    # @return [Class, nil] The plugin with the given name
-    def find(klass, name)
+    # @return [Class, nil] The plugin with the given identifier
+    def find(klass, identifier)
       @identifiers_to_classes[klass] ||= {}
-      resolve(@identifiers_to_classes[klass][name.to_sym], klass)
+      @identifiers_to_classes[klass][identifier]
     end
 
     # Returns all plugins of the given class.
@@ -70,58 +67,7 @@ module DDPlugin
     # @return [Enumerable<Class>] A collection of class plugins
     def find_all(klass)
       @identifiers_to_classes[klass] ||= {}
-      res = {}
-      @identifiers_to_classes[klass].each_pair { |k,v| res[k] = resolve(v, k) }
-      res
-    end
-
-    # Returns a list of all plugins. The returned list of plugins is an array
-    # with array elements in the following format:
-    #
-    #   { :class => ..., :superclass => ..., :identifiers => ... }
-    #
-    # @return [Array<Hash>] A list of all plugins in the format described
-    def all
-      plugins = []
-      @identifiers_to_classes.each_pair do |superclass, submap|
-        submap.each_pair do |identifier, klass|
-          # Find existing plugin
-          existing_plugin = plugins.find do |p|
-            p[:class] == klass && p[:superclass] == superclass
-          end
-
-          if existing_plugin
-            # Add identifier to existing plugin
-            existing_plugin[:identifiers] << identifier
-            existing_plugin[:identifiers] = existing_plugin[:identifiers].sort_by { |s| s.to_s }
-          else
-            # Create new plugin
-            plugins << {
-              :class       => klass,
-              :superclass  => superclass,
-              :identifiers => [ identifier ]
-            }
-          end
-        end
-      end
-
-      plugins
-    end
-
-  protected
-
-    def resolve(class_or_name, klass)
-      if class_or_name.is_a?(String)
-        class_or_name.scan(/\w+/).inject(Kernel) do |memo, part|
-          memo.const_get(part)
-        end
-      else
-        class_or_name
-      end
-    end
-
-    def name_for_class(klass)
-      klass.to_s.sub(/^(::)?/, '::')
+      @identifiers_to_classes[klass].values
     end
 
   end
