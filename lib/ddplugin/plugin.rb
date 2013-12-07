@@ -20,15 +20,18 @@ module DDPlugin
     #
     #   @return [Array<Symbol>] The identifiers for this class
     def identifiers(*identifiers)
-      root_class = self
-      root_class = root_class.superclass while root_class.superclass.respond_to?(:identifiers)
-
       if identifiers.empty?
         DDPlugin::Registry.instance.identifiers_of(root_class, self)
       else
-        registry = DDPlugin::Registry.instance
-        registry.register(root_class, self, *identifiers)
+        DDPlugin::Registry.instance.register(root_class, self, *identifiers)
       end
+    end
+
+    # @return [Class] The root class for this class
+    def root_class
+      klass = self
+      klass = klass.superclass while klass.superclass.respond_to?(:identifiers)
+      klass
     end
 
     # @overload identifier(identifier)

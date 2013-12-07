@@ -54,6 +54,9 @@ class DDPlugin::PluginTest < Minitest::Test
 
     assert_equal :sub, subklass.identifier
     assert_equal [ :sub, :also_sub ], subklass.identifiers
+
+    assert_equal InheritanceSample, superklass.root_class
+    assert_equal InheritanceSample, subklass.root_class
   end
 
   def test_named
