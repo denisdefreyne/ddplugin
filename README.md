@@ -10,7 +10,9 @@ This code was extracted from nanoc, where it has been in production for years.
 
 ## Installation
 
-`gem install ddplugin`
+```
+gem install ddplugin
+```
 
 ## Usage
 
@@ -63,6 +65,15 @@ DataSource.named(:filesystem)
 # => FilesystemDataSource
 DataSource.named(:postgres)
 # => PostgresDataSource
+```
+
+Get all plugins of a given type:
+
+```ruby
+Filter.all
+# => [ ERBFilter, HamlFilter ]
+DataSource.all
+# => [ FilesystemDataSource, PostgresDataSource ]
 ```
 
 Get identifier of a plugin:
