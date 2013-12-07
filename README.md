@@ -59,10 +59,13 @@ Find plugins of a given type and with a given identifier:
 ```ruby
 Filter.named(:erb)
 # => ERBFilter
+
 Filter.named(:haml)
 # => HamlFilter
+
 DataSource.named(:filesystem)
 # => FilesystemDataSource
+
 DataSource.named(:postgres)
 # => PostgresDataSource
 ```
@@ -72,6 +75,7 @@ Get all plugins of a given type:
 ```ruby
 Filter.all
 # => [ ERBFilter, HamlFilter ]
+
 DataSource.all
 # => [ FilesystemDataSource, PostgresDataSource ]
 ```
