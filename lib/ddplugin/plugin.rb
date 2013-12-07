@@ -3,81 +3,63 @@
 module DDPlugin
 
   # A module that contains class methods for plugins. It provides functions
-  # for setting identifiers, registering plugins and finding plugins. Plugin
-  # classes should extend this module.
+  # for setting identifiers and finding plugins. Plugin classes should extend
+  # this module.
   module Plugin
 
     # @overload identifiers(*identifiers)
     #
-    #   Sets the identifiers for this plugin.
+    #   Sets the identifiers for this class.
     #
     #   @param [Array<Symbol>] identifiers A list of identifiers to assign to
-    #     this plugin.
+    #     this class.
     #
     #   @return [void]
     #
     # @overload identifiers
     #
-    #   @return [Array<Symbol>] The identifiers for this plugin
+    #   @return [Array<Symbol>] The identifiers for this class
     def identifiers(*identifiers)
+      root_class = self
+      root_class = root_class.superclass while root_class.superclass.respond_to?(:identifiers)
+
       if identifiers.empty?
-        DDPlugin::Registry.instance.identifiers_of(self.superclass, self)
+        DDPlugin::Registry.instance.identifiers_of(root_class, self)
       else
-        register(self, *identifiers)
+        registry = DDPlugin::Registry.instance
+        registry.register(root_class, self, *identifiers)
       end
     end
 
     # @overload identifier(identifier)
     #
-    #   Sets the identifier for this plugin.
+    #   Sets the identifier for this class.
     #
-    #   @param [Symbol] identifier An identifier to assign to this plugin.
+    #   @param [Symbol] identifier The identifier to assign to this class.
     #
     #   @return [void]
     #
     # @overload identifier
     #
-    #   @return [Symbol] The first identifier for this plugin
+    #   @return [Symbol] The first identifier for this class
     def identifier(identifier=nil)
       if identifier
         self.identifiers(identifier)
       else
-        DDPlugin::Registry.instance.identifiers_of(self.superclass, self).first
+        self.identifiers.first
       end
     end
 
-    # Registers the given class as a plugin with the given identifier.
-    #
-    # @param [Class, String] class_or_name The class to register, or a
-    #   string containing the class name to register.
-    #
-    # @param [Array<Symbol>] identifiers A list of identifiers to assign to
-    #   this plugin.
-    #
-    # @return [void]
-    def register(class_or_name, *identifiers)
-      # Find plugin class
-      klass = self
-      klass = klass.superclass while klass.superclass.respond_to?(:register)
-
-      # Register
-      registry = DDPlugin::Registry.instance
-      registry.register(klass, class_or_name, *identifiers)
-    end
-
-    # @return [Hash<Symbol, Class>] All plugins of this type, with keys
-    #   being the identifiers and values the plugin classes
+    # @return [Enumerable<Class>] All classes of this type
     def all
       DDPlugin::Registry.instance.find_all(self)
     end
 
-    # Returns the plugin with the given name (identifier)
+    # @param [Symbol] identifier The identifier of the class to find
     #
-    # @param [String] name The name of the plugin class to find
-    #
-    # @return [Class] The plugin class with the given name
-    def named(name)
-      DDPlugin::Registry.instance.find(self, name)
+    # @return [Class] The class with the given identifier
+    def named(identifier)
+      DDPlugin::Registry.instance.find(self, identifier)
     end
 
   end

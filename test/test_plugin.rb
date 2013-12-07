@@ -16,6 +16,10 @@ class DDPlugin::PluginTest < Minitest::Test
     extend DDPlugin::Plugin
   end
 
+  class InheritanceSample
+    extend DDPlugin::Plugin
+  end
+
   def test_identifier
     klass = Class.new(IdentifierSample)
     assert_nil klass.identifier
@@ -36,6 +40,20 @@ class DDPlugin::PluginTest < Minitest::Test
 
     klass.identifiers :bar1, :bar2
     assert_equal [ :foo1, :foo2, :bar1, :bar2 ], klass.identifiers
+  end
+
+  def test_root
+    superklass = Class.new(InheritanceSample)
+    superklass.identifier :super
+
+    subklass = Class.new(superklass)
+    subklass.identifiers :sub, :also_sub
+
+    assert_equal superklass, InheritanceSample.named(:super)
+    assert_equal subklass, InheritanceSample.named(:sub)
+
+    assert_equal :sub, subklass.identifier
+    assert_equal [ :sub, :also_sub ], subklass.identifiers
   end
 
   def test_named
