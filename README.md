@@ -4,25 +4,54 @@
 
 # ddplugin
 
-*DDPlugin* allows you to define *plugins*, which are classes with identifiers, inheriting from a abstract plugin class.
+*ddplugin* is a library for managing plugins.
+
+Designing a library so that third parties can easily extend it greatly improves its usefulness. *ddplugin* helps solve this problem using *plugins*, which are classes of a certain type and with a given identifier (Ruby symbol).
 
 This code was extracted from nanoc, where it has been in production for years.
 
+## Use case
+
+Many projects can make use of plugins. Here are a few examples:
+
+* a **text processing library** with *filters* such as `colorize-syntax`, `markdown` and `smartify-quotes`.
+
+* an **image processing library** with *filters* such as `resize`, `desaturate` and `rotate`.
+
+* a **database driver abstraction** with *connectors* such as `postgres`, `sqlite3` and `mysql`.
+
+* a **document management system** with *data sources* such as `filesystem` and `database`.
+
+In *ddplugin*, the filters, connectors and data sources would be *plugin types*, while the actual plugins, such as `markdown`, `rotate`, `postgres` and `database` would be *plugins*.
+
+A typical way to use plugins would be to store the plugin names in a configuration file, so that the actual plugin implementations can be discovered at runtime.
+## Dependencies
+
+*ddplugin* has no dependencies other than Ruby.
+
+## Versioning
+
+*ddplugin* adheres to [Semantic Versioning 2.0.0](http://semver.org).
+
 ## Installation
 
+**NOTE:** *ddplugin* has not been released as a gem yet, so these installation instructions are not usable yet.
+
+If your library where you want to use *ddplugin* has a gemspec, add *ddplugin* as a runtime dependency to the gemspec:
+
+```ruby
+spec.add_runtime_dependency 'ddplugin' '~> 1.0'
 ```
-gem install ddplugin
+
+If you use Bundler instead, add it to the `Gemfile`:
+
+```ruby
+gem 'ddplugin', '~> 1.0'
 ```
 
 ## Usage
 
-Load *DDPlugin*:
-
-```ruby
-require 'ddplugin'
-```
-
-Define the plugin types:
+Plugin type are classes that extend `DDPlugin::Plugin`:
 
 ```ruby
 class Filter
@@ -34,7 +63,7 @@ class DataSource
 end
 ```
 
-Define plugins (concrete implementations of these plugin types):
+To define a plugin, create a class that inherits from the plugin type and sets the identifier:
 
 ```ruby
 class ERBFilter < Filter
@@ -54,7 +83,7 @@ class PostgresDataSource < DataSource
 end
 ```
 
-Find plugins of a given type and with a given identifier:
+To find a plugin of a given type and with a given identifier, call `.named` on the plugin type, passing an identifier:
 
 ```ruby
 Filter.named(:erb)
@@ -70,7 +99,7 @@ DataSource.named(:postgres)
 # => PostgresDataSource
 ```
 
-Get all plugins of a given type:
+To get all plugins of a given type, call `.all` on the plugin type:
 
 ```ruby
 Filter.all
@@ -80,9 +109,28 @@ DataSource.all
 # => [ FilesystemDataSource, PostgresDataSource ]
 ```
 
-Get identifier of a plugin:
+To get the identifier of a plugin, call `.identifier`:
 
 ```ruby
 Filter.named(:erb).identifier
 # => :erb
+
+PostgresDataSource.identifier
+# => :postgres
 ```
+
+## Development
+
+Pull requests and issues are greatly appreciated.
+
+When you submit a pull request, make sure that your change is covered by tests, and that the `README` and [YARD](http://yardoc.org/) source code documentation are still up-to-date.
+
+To run the tests, execute `rake`:
+
+```
+% rake
+```
+
+## Contact
+
+*ddplugin* is written by Denis Defreyne <denis.defreyne@stoneship.org>
