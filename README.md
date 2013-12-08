@@ -25,9 +25,10 @@ Many projects can make use of plugins. Here are a few examples:
 In *ddplugin*, the filters, connectors and data sources would be *plugin types*, while the actual plugins, such as `markdown`, `rotate`, `postgres` and `database` would be *plugins*.
 
 A typical way to use plugins would be to store the plugin names in a configuration file, so that the actual plugin implementations can be discovered at runtime.
+
 ## Dependencies
 
-*ddplugin* has no dependencies other than Ruby.
+*ddplugin* requires Ruby 1.9.3 or higher.
 
 ## Versioning
 
