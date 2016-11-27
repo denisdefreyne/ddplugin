@@ -1,7 +1,6 @@
 # encoding: utf-8
 
-$LOAD_PATH.unshift(File.expand_path('../lib/', __FILE__))
-require 'ddplugin/version'
+require_relative 'lib/ddplugin/version'
 
 Gem::Specification.new do |s|
   s.name        = 'ddplugin'
