@@ -37,8 +37,6 @@ A typical way to use plugins would be to store the plugin names in a configurati
 
 ## Installation
 
-**NOTE:** *ddplugin* has not been released as a gem yet, so these installation instructions are not usable yet.
-
 If your library where you want to use *ddplugin* has a gemspec, add *ddplugin* as a runtime dependency to the gemspec:
 
 ```ruby
