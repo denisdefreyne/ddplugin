@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module DDPlugin
   # The registry is responsible for keeping track of all loaded plugins.
   class Registry

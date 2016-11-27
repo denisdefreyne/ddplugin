@@ -1,5 +1,3 @@
-# encoding: utf-8
-
 module DDPlugin
   # A module that contains class methods for plugins. It provides functions
   # for setting identifiers and finding plugins. Plugin classes should extend
