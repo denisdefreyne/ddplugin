@@ -42,7 +42,7 @@ A typical way to use plugins would be to store the plugin names in a configurati
 If your library where you want to use *ddplugin* has a gemspec, add *ddplugin* as a runtime dependency to the gemspec:
 
 ```ruby
-spec.add_runtime_dependency 'ddplugin' '~> 1.0'
+spec.add_runtime_dependency 'ddplugin', '~> 1.0'
 ```
 
 If you use Bundler instead, add it to the `Gemfile`:
