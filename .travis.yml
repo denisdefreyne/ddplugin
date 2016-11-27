@@ -1,0 +1,15 @@
+language: ruby
+rvm:
+  - 2.1.9
+  - 2.2.6
+  - 2.3.3
+  - ruby-head
+branches:
+  only:
+    - "master"
+script:
+  - bundle exec rake
+cache: bundler
+sudo: false
+git:
+  depth: 10
