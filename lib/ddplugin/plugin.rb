@@ -1,12 +1,10 @@
 # encoding: utf-8
 
 module DDPlugin
-
   # A module that contains class methods for plugins. It provides functions
   # for setting identifiers and finding plugins. Plugin classes should extend
   # this module.
   module Plugin
-
     # @overload identifiers(*identifiers)
     #
     #   Sets the identifiers for this class.
@@ -45,11 +43,11 @@ module DDPlugin
     # @overload identifier
     #
     #   @return [Symbol] The first identifier for this class
-    def identifier(identifier=nil)
+    def identifier(identifier = nil)
       if identifier
-        self.identifiers(identifier)
+        identifiers(identifier)
       else
-        self.identifiers.first
+        identifiers.first
       end
     end
 
@@ -64,7 +62,5 @@ module DDPlugin
     def named(identifier)
       DDPlugin::Registry.instance.find(self, identifier)
     end
-
   end
-
 end

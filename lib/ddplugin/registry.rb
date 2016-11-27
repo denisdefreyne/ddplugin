@@ -1,22 +1,20 @@
 # encoding: utf-8
 
 module DDPlugin
-
   # The registry is responsible for keeping track of all loaded plugins.
   class Registry
-
     # Returns the shared {DDPlugin::Registry} instance, creating it if none
     # exists yet.
     #
     # @return [DDPlugin::Registry] The shared plugin registry
     def self.instance
-      @instance ||= self.new
+      @instance ||= new
     end
 
     # @api private
     def initialize
-      @identifiers_to_classes = Hash.new { |h,k| h[k] = {}.dup }
-      @classes_to_identifiers = Hash.new { |h,k| h[k] = {}.dup }
+      @identifiers_to_classes = Hash.new { |h, k| h[k] = {}.dup }
+      @classes_to_identifiers = Hash.new { |h, k| h[k] = {}.dup }
     end
 
     # Registers the given class as a plugin.
@@ -70,7 +68,5 @@ module DDPlugin
       @identifiers_to_classes[root_class] ||= {}
       @identifiers_to_classes[root_class].values
     end
-
   end
-
 end

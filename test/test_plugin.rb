@@ -3,7 +3,6 @@
 require 'helper'
 
 class DDPlugin::PluginTest < Minitest::Test
-
   class IdentifierSample
     extend DDPlugin::Plugin
   end
@@ -36,10 +35,10 @@ class DDPlugin::PluginTest < Minitest::Test
     assert_empty klass.identifiers
 
     klass.identifiers :foo1, :foo2
-    assert_equal [ :foo1, :foo2 ], klass.identifiers
+    assert_equal [:foo1, :foo2], klass.identifiers
 
     klass.identifiers :bar1, :bar2
-    assert_equal [ :foo1, :foo2, :bar1, :bar2 ], klass.identifiers
+    assert_equal [:foo1, :foo2, :bar1, :bar2], klass.identifiers
   end
 
   def test_root
@@ -53,7 +52,7 @@ class DDPlugin::PluginTest < Minitest::Test
     assert_equal subklass, InheritanceSample.named(:sub)
 
     assert_equal :sub, subklass.identifier
-    assert_equal [ :sub, :also_sub ], subklass.identifiers
+    assert_equal [:sub, :also_sub], subklass.identifiers
 
     assert_equal InheritanceSample, superklass.root_class
     assert_equal InheritanceSample, subklass.root_class
@@ -74,7 +73,6 @@ class DDPlugin::PluginTest < Minitest::Test
     klass2 = Class.new(AllSample)
     klass2.identifier :two
 
-    assert_equal [ klass1, klass2 ], AllSample.all
+    assert_equal [klass1, klass2], AllSample.all
   end
-
 end

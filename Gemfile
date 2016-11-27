@@ -5,3 +5,4 @@ gemspec
 gem 'minitest'
 gem 'rake'
 gem 'coveralls', require: false
+gem 'rubocop'
