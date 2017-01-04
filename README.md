@@ -9,7 +9,7 @@
 
 Designing a library so that third parties can easily extend it greatly improves its usefulness. *ddplugin* helps solve this problem using *plugins*, which are classes of a certain type and with a given identifier (Ruby symbol).
 
-This code was extracted from nanoc, where it has been in production for years.
+This code was extracted from Nanoc, where it has been in production for years.
 
 ## Use case
 
