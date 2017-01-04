@@ -130,7 +130,3 @@ To run the tests, execute `rake`:
 ```
 % rake
 ```
-
-## Contact
-
-*ddplugin* is written by Denis Defreyne <denis.defreyne@stoneship.org>
