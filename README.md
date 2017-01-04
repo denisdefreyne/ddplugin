@@ -27,9 +27,9 @@ In *ddplugin*, the filters, connectors and data sources would be *plugin types*,
 
 A typical way to use plugins would be to store the plugin names in a configuration file, so that the actual plugin implementations can be discovered at runtime.
 
-## Dependencies
+## Requirements
 
-*ddplugin* requires Ruby 1.9.3 or higher.
+*ddplugin* requires Ruby 2.1 or higher.
 
 ## Versioning
 
