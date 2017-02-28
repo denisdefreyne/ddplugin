@@ -73,4 +73,17 @@ class DDPlugin::PluginTest < Minitest::Test
 
     assert_equal [klass1, klass2], AllSample.all
   end
+
+  def test_all_with_multiple_identifiers
+    parent_class = Class.new { extend DDPlugin::Plugin }
+
+    klass1 = Class.new(parent_class)
+    klass1.identifier :one_a
+    klass1.identifier :one_b
+
+    klass2 = Class.new(parent_class)
+    klass2.identifier :two
+
+    assert_equal [klass1, klass2], parent_class.all
+  end
 end

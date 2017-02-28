@@ -64,7 +64,7 @@ module DDPlugin
     # @return [Enumerable<Class>] A collection of registered classes
     def find_all(root_class)
       @identifiers_to_classes[root_class] ||= {}
-      @identifiers_to_classes[root_class].values
+      @identifiers_to_classes[root_class].values.uniq
     end
   end
 end
