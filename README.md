@@ -126,8 +126,9 @@ Pull requests and issues are greatly appreciated.
 
 When you submit a pull request, make sure that your change is covered by tests, and that the `README` and [YARD](http://yardoc.org/) source code documentation are still up-to-date.
 
-To run the tests, execute `rake`:
+To run the tests:
 
 ```
-% rake
+% bundle install
+% bundle exec rake
 ```
