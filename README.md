@@ -104,10 +104,10 @@ To get all plugins of a given type, call `.all` on the plugin type:
 
 ```ruby
 Filter.all
-# => [ ERBFilter, HamlFilter ]
+# => [ERBFilter, HamlFilter]
 
 DataSource.all
-# => [ FilesystemDataSource, PostgresDataSource ]
+# => [FilesystemDataSource, PostgresDataSource]
 ```
 
 To get the identifier of a plugin, call `.identifier`:
