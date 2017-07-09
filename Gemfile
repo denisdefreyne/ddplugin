@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
+gem 'coveralls', require: false
 gem 'minitest'
 gem 'rake'
-gem 'coveralls', require: false
 gem 'rubocop'

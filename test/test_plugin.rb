@@ -33,10 +33,10 @@ class DDPlugin::PluginTest < Minitest::Test
     assert_empty klass.identifiers
 
     klass.identifiers :foo1, :foo2
-    assert_equal [:foo1, :foo2], klass.identifiers
+    assert_equal %i[foo1 foo2], klass.identifiers
 
     klass.identifiers :bar1, :bar2
-    assert_equal [:foo1, :foo2, :bar1, :bar2], klass.identifiers
+    assert_equal %i[foo1 foo2 bar1 bar2], klass.identifiers
   end
 
   def test_root
@@ -50,7 +50,7 @@ class DDPlugin::PluginTest < Minitest::Test
     assert_equal subklass, InheritanceSample.named(:sub)
 
     assert_equal :sub, subklass.identifier
-    assert_equal [:sub, :also_sub], subklass.identifiers
+    assert_equal %i[sub also_sub], subklass.identifiers
 
     assert_equal InheritanceSample, superklass.root_class
     assert_equal InheritanceSample, subklass.root_class

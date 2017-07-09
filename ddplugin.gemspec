@@ -15,11 +15,11 @@ Gem::Specification.new do |s|
 
   s.files              = Dir['[A-Z]*'] +
                          Dir['{lib,test}/**/*'] +
-                         [ 'ddplugin.gemspec' ]
-  s.require_paths      = [ 'lib' ]
+                         ['ddplugin.gemspec']
+  s.require_paths      = ['lib']
 
-  s.rdoc_options     = [ '--main', 'README.md' ]
-  s.extra_rdoc_files = [ 'LICENSE', 'README.md', 'NEWS.md' ]
+  s.rdoc_options     = ['--main', 'README.md']
+  s.extra_rdoc_files = ['LICENSE', 'README.md', 'NEWS.md']
 
   s.add_development_dependency('bundler', '~> 1.13')
 end
