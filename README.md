@@ -30,7 +30,7 @@ A typical way to use plugins would be to store the plugin names in a configurati
 
 ## Requirements
 
-*ddplugin* requires Ruby 2.1 or higher.
+*ddplugin* requires Ruby 2.2 or higher.
 
 ## Versioning
 
