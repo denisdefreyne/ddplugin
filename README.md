@@ -1,7 +1,8 @@
-[![Build Status](https://travis-ci.org/ddfreyne/ddplugin.png)](https://travis-ci.org/ddfreyne/ddplugin)
-[![Code Climate](https://codeclimate.com/github/ddfreyne/ddplugin.png)](https://codeclimate.com/github/ddfreyne/ddplugin)
-[![Coverage Status](https://coveralls.io/repos/ddfreyne/ddplugin/badge.png?branch=master)](https://coveralls.io/r/ddfreyne/ddplugin)
-[![Inline docs](http://inch-ci.org/github/ddfreyne/ddplugin.png)](http://inch-ci.org/github/ddfreyne/ddplugin)
+[![Gem version](http://img.shields.io/gem/v/ddplugin.svg)](http://rubygems.org/gems/ddplugin)
+[![Gem downloads](https://img.shields.io/gem/dt/ddplugin.svg)](http://rubygems.org/gems/ddplugin)
+[![Build status](http://img.shields.io/travis/ddfreyne/ddplugin.svg)](https://travis-ci.org/ddfreyne/ddplugin)
+[![Code Climate](http://img.shields.io/codeclimate/github/ddfreyne/ddplugin.svg)](https://codeclimate.com/github/ddfreyne/ddplugin)
+[![Code Coverage](https://img.shields.io/coveralls/ddfreyne/ddplugin.svg)](https://coveralls.io/r/ddfreyne/ddplugin)
 
 # ddplugin
 
