@@ -14,13 +14,6 @@ Style/TrailingCommaInHashLiteral:
 
 
 
-# ----- DISABLED (for now) -----
-
-Style/ClassAndModuleChildren:
-  Enabled: false
-
-
-
 # ----- DISABLED (metrics) -----
 
 # Cops for metrics are disabled because they should not cause tests to fail.

@@ -2,7 +2,7 @@
 
 require 'helper'
 
-class DDPlugin::PluginTest < Minitest::Test
+class PluginTest < Minitest::Test
   class IdentifierSample
     extend DDPlugin::Plugin
   end
