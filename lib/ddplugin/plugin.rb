@@ -9,8 +9,8 @@ module DDPlugin
     #
     #   Sets the identifiers for this class.
     #
-    #   @param [Array<Symbol>] identifiers A list of identifiers to assign to
-    #     this class.
+    #   @param [Array<Symbol, String>] identifiers A list of identifiers to
+    #     assign to this class.
     #
     #   @return [void]
     #
@@ -36,7 +36,8 @@ module DDPlugin
     #
     #   Sets the identifier for this class.
     #
-    #   @param [Symbol] identifier The identifier to assign to this class.
+    #   @param [Symbol, String] identifier The identifier to assign to this
+    #     class.
     #
     #   @return [void]
     #
@@ -56,7 +57,7 @@ module DDPlugin
       DDPlugin::Registry.instance.find_all(self)
     end
 
-    # @param [Symbol] identifier The identifier of the class to find
+    # @param [Symbol, String] identifier The identifier of the class to find
     #
     # @return [Class] The class with the given identifier
     def named(identifier)

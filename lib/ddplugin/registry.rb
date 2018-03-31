@@ -27,7 +27,7 @@ module DDPlugin
     #
     # @return [void]
     def register(root_class, klass, *identifiers)
-      identifiers.each do |identifier|
+      identifiers.map(&:to_sym).each do |identifier|
         @classes_to_identifiers[root_class][klass] ||= []
 
         @identifiers_to_classes[root_class][identifier] = klass
@@ -55,6 +55,7 @@ module DDPlugin
     #
     # @return [Class, nil] The class with the given identifier
     def find(root_class, identifier)
+      identifier = identifier.to_sym
       @identifiers_to_classes[root_class] ||= {}
       @identifiers_to_classes[root_class][identifier]
     end
