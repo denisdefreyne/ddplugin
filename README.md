@@ -64,23 +64,27 @@ class DataSource
 end
 ```
 
-To define a plugin, create a class that inherits from the plugin type and sets the identifier:
+To define a plugin, create a class that inherits from the plugin type and sets the identifier, either as a symbol or a string:
 
 ```ruby
 class ERBFilter < Filter
+  # Specify the identifier as a symbol…
   identifier :erb
 end
 
 class HamlFilter < Filter
-  identifier :haml
+  # … or as a string …
+  identifier 'haml'
 end
 
 class FilesystemDataSource < DataSource
-  identifier :filesystem
+  # … or even provide multiple.
+  identifiers :filesystem, :file_system
 end
 
 class PostgresDataSource < DataSource
-  identifier :postgres
+  # … or mix and match (not sure why you would, though)
+  identifier :postgres, 'postgresql'
 end
 ```
 
@@ -90,7 +94,7 @@ To find a plugin of a given type and with a given identifier, call `.named` on t
 Filter.named(:erb)
 # => ERBFilter
 
-Filter.named(:haml)
+Filter.named('haml')
 # => HamlFilter
 
 DataSource.named(:filesystem)
@@ -98,6 +102,31 @@ DataSource.named(:filesystem)
 
 DataSource.named(:postgres)
 # => PostgresDataSource
+```
+
+In a real-world situation, the plugin types could be described in the environment:
+
+```
+% cat .env
+DATA_SOURCE_TYPE=postgres
+```
+
+```ruby
+DataSource.named(ENV.fetch('DATA_SOURCE_TYPE'))
+# => PostgresDataSource
+```
+
+… or in a configuration file:
+
+```
+% cat config.yml
+data_source: 'filesystem'
+```
+
+```ruby
+config = YAML.load_file('config.yml')
+DataSource.named(config.fetch('data_source'))
+# => FilesystemDataSource
 ```
 
 To get all plugins of a given type, call `.all` on the plugin type:
@@ -110,11 +139,14 @@ DataSource.all
 # => [FilesystemDataSource, PostgresDataSource]
 ```
 
-To get the identifier of a plugin, call `.identifier`:
+To get the identifier of a plugin, call `.identifier`, which returns a symbol:
 
 ```ruby
 Filter.named(:erb).identifier
 # => :erb
+
+Filter.named('haml').identifier
+# => :haml
 
 PostgresDataSource.identifier
 # => :postgres

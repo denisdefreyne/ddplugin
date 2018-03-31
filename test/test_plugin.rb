@@ -30,6 +30,14 @@ class PluginTest < Minitest::Test
     assert_equal :foo, klass.identifier
   end
 
+  def test_identifier_with_string
+    klass = Class.new(IdentifierSample)
+    assert_nil klass.identifier
+
+    klass.identifier 'asdf'
+    assert_equal :asdf, klass.identifier
+  end
+
   def test_identifiers
     klass = Class.new(IdentifierSample)
     assert_empty klass.identifiers
@@ -38,6 +46,17 @@ class PluginTest < Minitest::Test
     assert_equal %i[foo1 foo2], klass.identifiers
 
     klass.identifiers :bar1, :bar2
+    assert_equal %i[foo1 foo2 bar1 bar2], klass.identifiers
+  end
+
+  def test_identifiers_with_string
+    klass = Class.new(IdentifierSample)
+    assert_empty klass.identifiers
+
+    klass.identifiers 'foo1', 'foo2'
+    assert_equal %i[foo1 foo2], klass.identifiers
+
+    klass.identifiers 'bar1', 'bar2'
     assert_equal %i[foo1 foo2 bar1 bar2], klass.identifiers
   end
 
@@ -64,6 +83,14 @@ class PluginTest < Minitest::Test
 
     assert_nil NamedSample.named(:unknown)
     assert_equal klass, NamedSample.named(:named_test)
+  end
+
+  def test_named_with_string
+    klass = Class.new(NamedSample)
+    klass.identifier :named_test
+
+    assert_nil NamedSample.named('unknown')
+    assert_equal klass, NamedSample.named('named_test')
   end
 
   def test_all
