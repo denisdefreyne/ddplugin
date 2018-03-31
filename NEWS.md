@@ -1,5 +1,11 @@
 # ddplugin release notes
 
+## 1.0.2 (2018-03-31)
+
+Enhancements:
+
+* Made it possible to pass strings instead of symbols (#4)
+
 ## 1.0.1 (2017-02-28)
 
 Fixes:
