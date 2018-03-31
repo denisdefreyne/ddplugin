@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module DDPlugin
   # The registry is responsible for keeping track of all loaded plugins.
   class Registry
