@@ -22,6 +22,4 @@ Gem::Specification.new do |s|
 
   s.rdoc_options     = ['--main', 'README.md']
   s.extra_rdoc_files = ['LICENSE', 'README.md', 'NEWS.md']
-
-  s.add_development_dependency('bundler', '~> 1.13')
 end
