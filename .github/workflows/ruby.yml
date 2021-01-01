@@ -1,0 +1,31 @@
+name: ddplugin
+
+on: push
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby-version: ["2.5", "2.6", "2.7", "3.0"]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby-version }}
+
+      - uses: actions/cache@v2
+        with:
+          path: vendor/bundle
+          key: bundler-b-${{ runner.os }}-${{ matrix.ruby-version }}-${{ hashFiles('Gemfile') }}
+
+      - run: |
+          bundle config set --local path 'vendor/bundle'
+          bundle install --jobs "$(nproc)"
+
+      - name: Test
+        run: bundle exec rake
