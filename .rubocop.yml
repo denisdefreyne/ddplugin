@@ -6,6 +6,7 @@ AllCops:
   TargetRubyVersion: 2.5
   Exclude:
     - scripts/release
+    - vendor/bundle/**/*
 
 require:
   - rubocop-rake
