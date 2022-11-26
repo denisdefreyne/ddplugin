@@ -2,7 +2,6 @@
 [![Gem downloads](https://img.shields.io/gem/dt/ddplugin.svg)](http://rubygems.org/gems/ddplugin)
 [![Build status](http://img.shields.io/travis/ddfreyne/ddplugin.svg)](https://travis-ci.org/ddfreyne/ddplugin)
 [![Code Climate](http://img.shields.io/codeclimate/github/ddfreyne/ddplugin.svg)](https://codeclimate.com/github/ddfreyne/ddplugin)
-[![Code Coverage](https://img.shields.io/coveralls/ddfreyne/ddplugin.svg)](https://coveralls.io/r/ddfreyne/ddplugin)
 
 # ddplugin
 
