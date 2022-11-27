@@ -4,9 +4,9 @@
 
 # ddplugin
 
-*ddplugin* is a library for managing plugins.
+_ddplugin_ is a library for managing plugins.
 
-Designing a library so that third parties can easily extend it greatly improves its usefulness. *ddplugin* helps solve this problem using *plugins*, which are classes of a certain type and with a given identifier (Ruby symbol).
+Designing a library so that third parties can easily extend it greatly improves its usefulness. _ddplugin_ helps solve this problem using _plugins_, which are classes of a certain type and with a given identifier (Ruby symbol).
 
 This code was extracted from Nanoc, where it has been in production for years.
 
@@ -14,29 +14,29 @@ This code was extracted from Nanoc, where it has been in production for years.
 
 Many projects can make use of plugins. Here are a few examples:
 
-* a **text processing library** with *filters* such as `colorize-syntax`, `markdown` and `smartify-quotes`.
+- a **text processing library** with _filters_ such as `colorize-syntax`, `markdown` and `smartify-quotes`.
 
-* an **image processing library** with *filters* such as `resize`, `desaturate` and `rotate`.
+- an **image processing library** with _filters_ such as `resize`, `desaturate` and `rotate`.
 
-* a **database driver abstraction** with *connectors* such as `postgres`, `sqlite3` and `mysql`.
+- a **database driver abstraction** with _connectors_ such as `postgres`, `sqlite3` and `mysql`.
 
-* a **document management system** with *data sources* such as `filesystem` and `database`.
+- a **document management system** with _data sources_ such as `filesystem` and `database`.
 
-In *ddplugin*, the filters, connectors and data sources would be *plugin types*, while the actual plugins, such as `markdown`, `rotate`, `postgres` and `database` would be *plugins*.
+In _ddplugin_, the filters, connectors and data sources would be _plugin types_, while the actual plugins, such as `markdown`, `rotate`, `postgres` and `database` would be _plugins_.
 
 A typical way to use plugins would be to store the plugin names in a configuration file, so that the actual plugin implementations can be discovered at runtime.
 
 ## Requirements
 
-*ddplugin* requires Ruby 2.3 or higher.
+_ddplugin_ requires Ruby 2.3 or higher.
 
 ## Versioning
 
-*ddplugin* adheres to [Semantic Versioning 2.0.0](http://semver.org).
+_ddplugin_ adheres to [Semantic Versioning 2.0.0](http://semver.org).
 
 ## Installation
 
-If your library where you want to use *ddplugin* has a gemspec, add *ddplugin* as a runtime dependency to the gemspec:
+If your library where you want to use _ddplugin_ has a gemspec, add _ddplugin_ as a runtime dependency to the gemspec:
 
 ```ruby
 spec.add_runtime_dependency 'ddplugin', '~> 1.0'
@@ -89,17 +89,13 @@ end
 To find a plugin of a given type and with a given identifier, call `.named` on the plugin type, passing an identifier:
 
 ```ruby
-Filter.named(:erb)
-# => ERBFilter
+Filter.named(:erb) # => ERBFilter
 
-Filter.named('haml')
-# => HamlFilter
+Filter.named('haml') # => HamlFilter
 
-DataSource.named(:filesystem)
-# => FilesystemDataSource
+DataSource.named(:filesystem) # => FilesystemDataSource
 
-DataSource.named(:postgres)
-# => PostgresDataSource
+DataSource.named(:postgres) # => PostgresDataSource
 ```
 
 In a real-world situation, the plugin types could be described in the environment:
@@ -110,8 +106,7 @@ DATA_SOURCE_TYPE=postgres
 ```
 
 ```ruby
-DataSource.named(ENV.fetch('DATA_SOURCE_TYPE'))
-# => PostgresDataSource
+DataSource.named(ENV.fetch('DATA_SOURCE_TYPE')) # => PostgresDataSource
 ```
 
 … or in a configuration file:
@@ -123,31 +118,25 @@ data_source: 'filesystem'
 
 ```ruby
 config = YAML.load_file('config.yml')
-DataSource.named(config.fetch('data_source'))
-# => FilesystemDataSource
+DataSource.named(config.fetch('data_source')) # => FilesystemDataSource
 ```
 
 To get all plugins of a given type, call `.all` on the plugin type:
 
 ```ruby
 Filter.all
-# => [ERBFilter, HamlFilter]
 
-DataSource.all
-# => [FilesystemDataSource, PostgresDataSource]
+DataSource.all # => [FilesystemDataSource, PostgresDataSource]
 ```
 
 To get the identifier of a plugin, call `.identifier`, which returns a symbol:
 
 ```ruby
 Filter.named(:erb).identifier
-# => :erb
 
 Filter.named('haml').identifier
-# => :haml
 
-PostgresDataSource.identifier
-# => :postgres
+PostgresDataSource.identifier # => :postgres
 ```
 
 ## Development
